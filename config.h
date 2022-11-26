@@ -4,8 +4,8 @@ static const unsigned int borderpx  = 1;  /* border pixel of windows */
 static const int lockfullscreen     = 1;  /* 1 will force focus on the fullscreen window */
 static const float rootcolor[]      = {0.3, 0.3, 0.3, 1.0};
 static const float bordercolor[]    = {0.5, 0.5, 0.5, 1.0};
-static const float focuscolor[]     = {1.0, 0.0, 0.0, 1.0};
-// static const float focuscolor[]     = {0.0, 0.5, 1.0, 1.0}; // Blue.
+// static const float focuscolor[]     = {1.0, 0.0, 0.0, 1.0};
+static const float focuscolor[]     = {0.0, 0.5, 1.0, 1.0}; // Blue.
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -15,7 +15,7 @@ static const Rule rules[] = {
 	/* examples:
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
-	{ "firefox",  NULL,       1 << 8,       0,           -1 },
+	// { "firefox",  NULL,       1 << 8,       0,           -1 },
 	{ "Rofi",     NULL,       0,            1,           -1 },
 };
 
@@ -104,8 +104,12 @@ static const char *const autostart[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+// Use WAYLAND_DISPLAY=alacritty so that fcitx5 works in alacritty.
+// static const char *termcmd[] = { "sh", "-c", "WAYLAND_DISPLAY=alacritty alacritty", NULL };
 static const char *termcmd[] = { "alacritty", NULL };
-static const char *menucmd[] = { "rofi", "-show", "run", NULL };
+static const char *menucmd1[] = { "rofi", "-disable-history", "-show", "run", "-show-icons", NULL };
+static const char *menucmd2[] = { "rofi", "-disable-history", "-show", "drun", "-show-icons", NULL };
+static const char *goldict[] = { "goldendict", NULL };
 static const char *volume_tgl[] = { "amixer", "set", "Master", "toggle", NULL };
 static const char *volume_add[] = { "amixer", "set", "Master",  "5%+", "unmute", NULL };
 static const char *volume_sub[] = { "amixer", "set", "Master",  "5%-", "unmute", NULL };
@@ -116,7 +120,8 @@ static const char *prev[] = {"rofi_playerctl", "previous", NULL};
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
-	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd} },
+	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = menucmd1} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_P,          spawn,          {.v = menucmd2} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
@@ -132,7 +137,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
-	{ MODKEY,                    XKB_KEY_e,         togglefullscreen, {0} },
+	{ MODKEY,                    XKB_KEY_e,          togglefullscreen, {0} },
 	{ MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright, tag,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_comma,      focusmon,       {.i = WLR_DIRECTION_LEFT} },
@@ -140,6 +145,7 @@ static const Key keys[] = {
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,       tagmon,         {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,    tagmon,         {.i = WLR_DIRECTION_RIGHT} },
 
+	{ MODKEY,                    XKB_KEY_g,                      spawn, {.v = goldict} },
 	{ 0,                         XKB_KEY_XF86AudioMute,          spawn, {.v = volume_tgl} },
 	{ 0,                         XKB_KEY_XF86AudioLowerVolume,   spawn, {.v = volume_sub} },
 	{ 0,                         XKB_KEY_XF86AudioRaiseVolume,   spawn, {.v = volume_add} },
