@@ -1,14 +1,18 @@
 /* appearance */
 static const int sloppyfocus        = 1;  /* focus follows mouse */
+static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const unsigned int borderpx  = 1;  /* border pixel of windows */
 static const int lockfullscreen     = 1;  /* 1 will force focus on the fullscreen window */
 static const float rootcolor[]      = {0.3, 0.3, 0.3, 1.0};
 static const float bordercolor[]    = {0.5, 0.5, 0.5, 1.0};
 // static const float focuscolor[]     = {1.0, 0.0, 0.0, 1.0};
 static const float focuscolor[]     = {0.0, 0.5, 1.0, 1.0}; // Blue.
+/* To conform the xdg-protocol, set the alpha to zero to restore the old behavior */
+static const float fullscreen_bg[]         = {0.1, 0.1, 0.1, 1.0};
 
-/* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+/* tagging - tagcount must be no greater than 31 */
+#define TAGCOUNT (9)
+static const int tagcount = TAGCOUNT;
 
 static const Rule rules[] = {
 	/* app_id     title       tags mask     isfloating   monitor */
@@ -34,7 +38,7 @@ static const MonitorRule monrules[] = {
 	{ "eDP-1",    0.5,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL },
 	*/
 	/* defaults */
-	{ NULL,       0.55, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL },
+	{ NULL,       0.55, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL, -1, -1},
 };
 
 /* keyboard */
@@ -85,6 +89,11 @@ LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE
 */
 static const enum libinput_config_accel_profile accel_profile = LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE;
 static const double accel_speed = 0.0;
+/* You can choose between:
+LIBINPUT_CONFIG_TAP_MAP_LRM -- 1/2/3 finger tap maps to left/right/middle
+LIBINPUT_CONFIG_TAP_MAP_LMR -- 1/2/3 finger tap maps to left/middle/right
+*/
+static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TAP_MAP_LRM;
 
 /* Autostart */
 static const char *const autostart[] = {
@@ -113,9 +122,9 @@ static const char *goldict[] = { "goldendict", NULL };
 static const char *volume_tgl[] = { "amixer", "set", "Master", "toggle", NULL };
 static const char *volume_add[] = { "amixer", "set", "Master",  "5%+", "unmute", NULL };
 static const char *volume_sub[] = { "amixer", "set", "Master",  "5%-", "unmute", NULL };
-static const char *next[] = {"rofi_playerctl", "next", NULL};
-static const char *play[] = {"rofi_playerctl", "play-pause", NULL};
-static const char *prev[] = {"rofi_playerctl", "previous", NULL};
+static const char *audio_next[] = {"rofi_playerctl", "next", NULL};
+static const char *audio_play[] = {"rofi_playerctl", "play-pause", NULL};
+static const char *audio_prev[] = {"rofi_playerctl", "previous", NULL};
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -149,9 +158,9 @@ static const Key keys[] = {
 	{ 0,                         XKB_KEY_XF86AudioMute,          spawn, {.v = volume_tgl} },
 	{ 0,                         XKB_KEY_XF86AudioLowerVolume,   spawn, {.v = volume_sub} },
 	{ 0,                         XKB_KEY_XF86AudioRaiseVolume,   spawn, {.v = volume_add} },
-	{ 0,                         XKB_KEY_XF86AudioNext,          spawn, {.v = next}},
-  { 0,                         XKB_KEY_XF86AudioPlay,          spawn, {.v = play}},
-	{ 0,                         XKB_KEY_XF86AudioPrev,          spawn, {.v = prev}},
+	{ 0,                         XKB_KEY_XF86AudioNext,          spawn, {.v = audio_next}},
+  { 0,                         XKB_KEY_XF86AudioPlay,          spawn, {.v = audio_play}},
+	{ 0,                         XKB_KEY_XF86AudioPrev,          spawn, {.v = audio_prev}},
 
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
 	TAGKEYS(          XKB_KEY_2, XKB_KEY_at,                         1),
