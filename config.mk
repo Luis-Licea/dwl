@@ -14,4 +14,4 @@ CFLAGS = -pedantic -Wall -Wextra -Werror -Wno-unused-parameter -Wno-sign-compare
 # XLIBS =
 # Uncomment to build XWayland support
 XWAYLAND = -DXWAYLAND
-XLIBS = xcb
+XLIBS = xcb xcb-icccm
