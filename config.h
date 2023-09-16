@@ -97,7 +97,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* Autostart */
 static const char *const autostart[] = {
-        "sh", "-c", "/home/luis/.config/dwl/programs.sh", NULL,
+        "sh", "-c", "/home/luis/.config/dwl/programs.bash", NULL,
         NULL /* terminate */
 };
 
