@@ -119,12 +119,12 @@ static const char *termcmd[] = { "alacritty", NULL };
 static const char *menucmd1[] = { "rofi", "-disable-history", "-show", "run", "-show-icons", NULL };
 static const char *menucmd2[] = { "rofi", "-disable-history", "-show", "drun", "-show-icons", NULL };
 static const char *goldict[] = { "goldendict", NULL };
-static const char *volume_tgl[] = { "amixer", "set", "Master", "toggle", NULL };
-static const char *volume_add[] = { "amixer", "set", "Master",  "5%+", "unmute", NULL };
-static const char *volume_sub[] = { "amixer", "set", "Master",  "5%-", "unmute", NULL };
-static const char *audio_next[] = {"rofi_playerctl", "next", NULL};
-static const char *audio_play[] = {"rofi_playerctl", "play-pause", NULL};
-static const char *audio_prev[] = {"rofi_playerctl", "previous", NULL};
+static const char *volume_tgl[] = { "pw-volume", "mute", "toggle", NULL };
+static const char *volume_add[] = { "pw-volume", "change", "+0.25%", NULL };
+static const char *volume_sub[] = { "pw-volume", "change", "-0.25%", NULL };
+static const char *audio_next[] = { "rofi_playerctl", "next", NULL };
+static const char *audio_play[] = { "rofi_playerctl", "play-pause", NULL };
+static const char *audio_prev[] = { "rofi_playerctl", "previous", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
