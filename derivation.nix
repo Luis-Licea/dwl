@@ -25,7 +25,7 @@ in
     pname = "dwl";
     version = "0.4";
 
-    src = ./.;
+    src = builtins.fetchGit ./.;
 
     nativeBuildInputs = [
       installShellFiles
