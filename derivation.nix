@@ -23,9 +23,9 @@
 in
   stdenv.mkDerivation rec {
     pname = "dwl";
-    version = "0.4.1";
+    version = "0.4.2";
 
-    src = builtins.fetchGit ./.;
+    src = ./.;
 
     nativeBuildInputs = [
       installShellFiles
