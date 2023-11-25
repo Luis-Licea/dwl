@@ -23,7 +23,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "dwl";
-    version = "0.4";
+    version = "0.4.1";
 
     src = builtins.fetchGit ./.;
 
