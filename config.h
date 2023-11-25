@@ -20,6 +20,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
 	// { "firefox",  NULL,       1 << 8,       0,           -1 },
+	{ "nyxt",     NULL,       0,            0,           -1 },
 	{ "Rofi",     NULL,       0,            1,           -1 },
 };
 
