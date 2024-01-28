@@ -23,7 +23,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "dwl";
-    version = "0.4.3";
+    version = "0.4.4";
 
     # For local development with `nix profile install`
     # src = ./.;
@@ -34,7 +34,7 @@ in
       repo = "dwl";
       # host = "";
       # ref = "main";
-      rev = "de7afb50a20389079f09a5f43091629861279fdf";
+      rev = "afe85dd31e4716f36a3bbb599c49580bd72a29bd";
     };
 
     nativeBuildInputs = [
