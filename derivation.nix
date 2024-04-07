@@ -27,6 +27,7 @@ in
 
     # For local development with `nix profile install`
     # src = ./.;
+    # You may need to comment out the package for it to update in home manager.
 
     src = builtins.fetchTree {
       type = "github";
